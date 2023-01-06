@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:not_whatsapp_lol/common/utils/theme/dark_theme.dart';
+import 'package:not_whatsapp_lol/common/utils/theme/light_theme.dart';
 import 'package:not_whatsapp_lol/features/welcome/pages/welcome_page.dart';
 
 void main() {
@@ -13,8 +15,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'nWhatsapp Messenger',
-      theme: ThemeData.dark(),
-      home: WelcomePage(),
+      theme: lightTheme(),
+      darkTheme: darkTheme(),
+      themeMode: ThemeMode.system,
+      home: const WelcomePage(),
     );
   }
 }
