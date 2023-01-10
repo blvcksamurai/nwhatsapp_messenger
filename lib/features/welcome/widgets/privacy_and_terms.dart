@@ -34,12 +34,6 @@ class PrivacyAndTerms extends StatelessWidget {
                     color: context.theme.blueColor,
                   ),
                 ),
-                TextSpan(
-                  text: 'Terms of Services. ',
-                  style: TextStyle(
-                    color: context.theme.blueColor,
-                  ),
-                ),
               ])),
     );
   }
