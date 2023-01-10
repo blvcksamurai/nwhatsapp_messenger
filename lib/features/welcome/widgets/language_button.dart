@@ -28,6 +28,9 @@ class LanguageButton extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
+              const SizedBox(
+                height: 20,
+              ),
               Row(
                 children: [
                   IconButton(
