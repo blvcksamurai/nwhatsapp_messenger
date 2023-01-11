@@ -6,22 +6,22 @@ import '../../../common/utils/colors.dart';
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
     super.key,
-    required this.controller,
+    this.controller,
     this.hintText,
     this.readOnly,
     this.textAlign,
-    required this.keyboardType,
+    this.keyboardType,
     this.prefixText,
     this.onTap,
     this.suffixIcon,
     this.onChanged,
   });
 
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String? hintText;
   final bool? readOnly;
   final TextAlign? textAlign;
-  final TextInputType keyboardType;
+  final TextInputType? keyboardType;
   final String? prefixText;
   final VoidCallback? onTap;
   final Widget? suffixIcon;
@@ -38,6 +38,7 @@ class CustomTextField extends StatelessWidget {
       onChanged: onChanged,
       decoration: InputDecoration(
         isDense: true,
+        hintText: hintText,
         prefixText: prefixText,
         suffix: suffixIcon,
         hintStyle: TextStyle(color: context.theme.greyColor),
