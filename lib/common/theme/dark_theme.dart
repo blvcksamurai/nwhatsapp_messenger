@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:not_whatsapp_lol/common/utils/colors.dart';
-import 'package:not_whatsapp_lol/common/utils/extension/common_theme_extension.dart';
+import 'package:not_whatsapp_lol/common/extension/common_theme_extension.dart';
 
 ThemeData darkTheme() {
   final ThemeData base = ThemeData.dark();
@@ -12,6 +12,7 @@ ThemeData darkTheme() {
       CustomThemeExtension.darkMode,
     ],
     appBarTheme: const AppBarTheme(
+      titleTextStyle: TextStyle(fontSize: 18),
       systemOverlayStyle: SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.light,
@@ -33,6 +34,12 @@ ThemeData darkTheme() {
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(20),
         ),
+      ),
+    ),
+    dialogBackgroundColor: Coloors.greyBackground,
+    dialogTheme: DialogTheme(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
       ),
     ),
   );

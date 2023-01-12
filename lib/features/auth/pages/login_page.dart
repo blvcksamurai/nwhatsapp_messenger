@@ -1,8 +1,12 @@
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:not_whatsapp_lol/common/extension/common_theme_extension.dart';
+import 'package:not_whatsapp_lol/common/helper/show_alert_dialog.dart';
 import 'package:not_whatsapp_lol/common/utils/colors.dart';
-import 'package:not_whatsapp_lol/common/utils/extension/common_theme_extension.dart';
-import 'package:not_whatsapp_lol/common/utils/widgets/custom_elevated_button.dart';
+import 'package:not_whatsapp_lol/common/widgets/custom_elevated_button.dart';
 import 'package:not_whatsapp_lol/features/auth/widgets/custom_text_field.dart';
+
+import '../widgets/custom_icon_button.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -15,6 +19,69 @@ class _LoginPageState extends State<LoginPage> {
   late TextEditingController countryNameController;
   late TextEditingController countryCodeController;
   late TextEditingController phoneNumberController;
+
+  sendCodeToPhone() {
+    final phoneNumber = phoneNumberController.text;
+    final countryName = countryNameController.text;
+    final countryCode = countryCodeController.text;
+
+    if (phoneNumber.isEmpty) {
+      return showAlertDialog(
+        context: context,
+        message: "Please enter your phone number",
+      );
+    } else if (phoneNumber.length < 9) {
+      return showAlertDialog(
+        context: context,
+        message:
+            'The phone number you entered is too short for the country: $countryName\n\nInclude your area code if you haven\'t',
+      );
+    } else if (phoneNumber.length > 10) {
+      return showAlertDialog(
+        context: context,
+        message:
+            "The phone number you entered is too long for the country: $countryName",
+      );
+    }
+  }
+
+  showCoutryCodePicker() {
+    showCountryPicker(
+      context: context,
+      showPhoneCode: true,
+      favorite: ['ET'],
+      countryListTheme: CountryListThemeData(
+        bottomSheetHeight: 600,
+        backgroundColor: Theme.of(context).backgroundColor,
+        flagSize: 22,
+        borderRadius: BorderRadius.circular(20),
+        textStyle: TextStyle(color: context.theme.greyColor),
+        inputDecoration: InputDecoration(
+          labelStyle: TextStyle(color: context.theme.greyColor),
+          prefixIcon: const Icon(
+            Icons.language,
+            color: Coloors.greenDark,
+          ),
+          hintText: 'Search country code or name',
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: context.theme.greyColor!.withOpacity(0.2),
+            ),
+          ),
+          focusedBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Coloors.greenDark,
+            ),
+          ),
+        ),
+      ),
+      onSelect: (country) {
+        countryNameController.text = country.name;
+        countryCodeController.text = country.countryCode;
+      },
+    );
+  }
+
   @override
   void initState() {
     countryNameController = TextEditingController(text: 'Ethiopia');
@@ -45,17 +112,9 @@ class _LoginPageState extends State<LoginPage> {
         ),
         centerTitle: true,
         actions: [
-          IconButton(
-            onPressed: () {},
-            splashColor: Colors.transparent,
-            splashRadius: 22,
-            iconSize: 22,
-            padding: EdgeInsets.zero,
-            constraints: const BoxConstraints(minWidth: 40),
-            icon: Icon(
-              Icons.more_vert,
-              color: context.theme.greyColor,
-            ),
+          CustomIconButton(
+            onTap: () {},
+            icon: Icons.more_vert,
           ),
         ],
       ),
@@ -87,7 +146,7 @@ class _LoginPageState extends State<LoginPage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50),
             child: CustomTextField(
-              onTap: () {},
+              onTap: showCoutryCodePicker,
               readOnly: true,
               controller: countryNameController,
               suffixIcon: const Icon(
@@ -106,7 +165,7 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   width: 70,
                   child: CustomTextField(
-                    onTap: () {},
+                    onTap: showCoutryCodePicker,
                     controller: countryCodeController,
                     prefixText: '+',
                     readOnly: true,

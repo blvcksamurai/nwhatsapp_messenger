@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:not_whatsapp_lol/common/utils/colors.dart';
-import 'package:not_whatsapp_lol/common/utils/extension/common_theme_extension.dart';
+import 'package:not_whatsapp_lol/common/extension/common_theme_extension.dart';
 
-import '../../../common/utils/widgets/custom_elevated_button.dart';
+import '../../../common/widgets/custom_elevated_button.dart';
 import '../widgets/language_button.dart';
 import '../widgets/privacy_and_terms.dart';
 
