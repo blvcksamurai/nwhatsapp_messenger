@@ -1,31 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:not_whatsapp_lol/common/utils/extension/common_theme_extension.dart';
+import 'package:not_whatsapp_lol/common/extension/common_theme_extension.dart';
 
 import '../../../common/utils/colors.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
     super.key,
-    required this.controller,
+    this.controller,
     this.hintText,
     this.readOnly,
     this.textAlign,
-    required this.keyboardType,
+    this.keyboardType,
     this.prefixText,
     this.onTap,
     this.suffixIcon,
     this.onChanged,
+    this.fontSize,
+    this.autoFocus,
   });
 
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String? hintText;
   final bool? readOnly;
   final TextAlign? textAlign;
-  final TextInputType keyboardType;
+  final TextInputType? keyboardType;
   final String? prefixText;
   final VoidCallback? onTap;
   final Widget? suffixIcon;
   final Function(String)? onChanged;
+  final double? fontSize;
+  final bool? autoFocus;
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +40,11 @@ class CustomTextField extends StatelessWidget {
       textAlign: textAlign ?? TextAlign.center,
       keyboardType: readOnly == null ? keyboardType : null,
       onChanged: onChanged,
+      style: TextStyle(fontSize: fontSize),
+      autofocus: autoFocus ?? false,
       decoration: InputDecoration(
         isDense: true,
+        hintText: hintText,
         prefixText: prefixText,
         suffix: suffixIcon,
         hintStyle: TextStyle(color: context.theme.greyColor),

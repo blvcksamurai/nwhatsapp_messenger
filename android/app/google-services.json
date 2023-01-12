@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "807567410806",
+    "project_id": "nwhatsapp-messenger",
+    "storage_bucket": "nwhatsapp-messenger.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:807567410806:android:aa81eab6181de578c34157",
+        "android_client_info": {
+          "package_name": "com.example.not_whatsapp_lol"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "807567410806-9tl0cs42c77sr5g0hm0smhn4k27hgstt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSiuAosnLZPkfcSLu1UnQZZtbrPBe7GJM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "807567410806-9tl0cs42c77sr5g0hm0smhn4k27hgstt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
