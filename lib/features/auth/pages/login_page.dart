@@ -1,21 +1,23 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:not_whatsapp_lol/common/extension/common_theme_extension.dart';
 import 'package:not_whatsapp_lol/common/helper/show_alert_dialog.dart';
 import 'package:not_whatsapp_lol/common/utils/colors.dart';
 import 'package:not_whatsapp_lol/common/widgets/custom_elevated_button.dart';
+import 'package:not_whatsapp_lol/features/auth/controller/auth_controller.dart';
 import 'package:not_whatsapp_lol/features/auth/widgets/custom_text_field.dart';
 
 import '../widgets/custom_icon_button.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  ConsumerState<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends ConsumerState<LoginPage> {
   late TextEditingController countryNameController;
   late TextEditingController countryCodeController;
   late TextEditingController phoneNumberController;
@@ -43,6 +45,13 @@ class _LoginPageState extends State<LoginPage> {
             "The phone number you entered is too long for the country: $countryName",
       );
     }
+
+    //request a verification code
+
+    ref.read(authControllerProvider).sendSmsCode(
+          context: context,
+          phoneNumber: '+$countryCode$phoneNumber',
+        );
   }
 
   showCoutryCodePicker() {
@@ -77,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
       onSelect: (country) {
         countryNameController.text = country.name;
-        countryCodeController.text = country.countryCode;
+        countryCodeController.text = country.phoneCode;
       },
     );
   }
@@ -198,7 +207,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: CustomElevatedButton(
-        onPressed: () {},
+        onPressed: sendCodeToPhone,
         text: 'NEXT',
         buttonWidth: 90,
       ),
