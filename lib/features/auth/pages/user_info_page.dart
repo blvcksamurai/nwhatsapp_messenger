@@ -222,7 +222,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: CustomElevatedButton(
-        onPressed: () => {},
+        onPressed: () {},
         text: 'NEXT',
         buttonWidth: 90,
       ),
