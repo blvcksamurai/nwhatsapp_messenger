@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:not_whatsapp_lol/common/helper/show_alert_dialog.dart';
+import 'package:not_whatsapp_lol/common/helper/show_loading_dialog.dart';
 import 'package:not_whatsapp_lol/common/models/user_model.dart';
 import 'package:not_whatsapp_lol/common/repository/firebase_storage_repository.dart';
 import 'package:not_whatsapp_lol/common/routes/routes.dart';
@@ -25,6 +26,15 @@ class AuthRepository {
     required this.firestore,
   });
 
+  Future<UserModel?> getCurrentUserInfo() async {
+    UserModel? user;
+    final userInfo =
+        await firestore.collection('users').doc(auth.currentUser?.uid).get();
+    if (userInfo.data() == null) return user;
+    user = UserModel.fromMap(userInfo.data()!);
+    return user;
+  }
+
   void saveUserInfoToFirestore({
     required String username,
     required var profileImage,
@@ -33,9 +43,10 @@ class AuthRepository {
     required bool mounted,
   }) async {
     try {
+      showLoadingDialog(context: context, message: 'Saving user info ...');
       String uid = auth.currentUser!.uid;
-      String profileImageUrl = '';
-      if (profileImageUrl != null) {
+      String profileImageUrl = profileImage is String ? profileImage : '';
+      if (profileImageUrl != null && profileImage is! String) {
         profileImageUrl = await ref
             .read(firebaseStorageRepositoryProvider)
             .storeFileToFirebase('profileImage/$uid', profileImage);
@@ -59,6 +70,7 @@ class AuthRepository {
         (route) => false,
       );
     } catch (e) {
+      Navigator.pop(context);
       showAlertDialog(context: context, message: e.toString());
     }
   }
@@ -70,16 +82,21 @@ class AuthRepository {
     required bool mounted,
   }) async {
     try {
+      showLoadingDialog(
+          context: context, message: 'Code Verification in progress...');
       final credential = PhoneAuthProvider.credential(
           verificationId: smsCodeId, smsCode: smsCode);
 
       await auth.signInWithCredential(credential);
+      UserModel? user = await getCurrentUserInfo();
       if (!mounted) return;
       Navigator.of(context).pushNamedAndRemoveUntil(
         Routes.userInfo,
         (route) => false,
+        arguments: user?.profileImageUrl,
       );
     } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
       showAlertDialog(
         context: context,
         message: e.toString(),
@@ -92,6 +109,9 @@ class AuthRepository {
     required String phoneNumber,
   }) async {
     try {
+      showLoadingDialog(
+          context: context,
+          message: 'Sending a verification code to $phoneNumber');
       await auth.verifyPhoneNumber(
         phoneNumber: phoneNumber,
         verificationCompleted: (PhoneAuthCredential credential) async {
@@ -111,6 +131,7 @@ class AuthRepository {
         codeAutoRetrievalTimeout: (String smsCodeId) {},
       );
     } on FirebaseAuth catch (e) {
+      Navigator.pop(context);
       showAlertDialog(context: context, message: e.toString());
     }
   }
