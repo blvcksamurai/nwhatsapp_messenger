@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:not_whatsapp_lol/features/auth/pages/login_page.dart';
 import 'package:not_whatsapp_lol/features/auth/pages/user_info_page.dart';
 import 'package:not_whatsapp_lol/features/auth/pages/verification_page.dart';
+import 'package:not_whatsapp_lol/features/contact/pages/contact_page.dart';
 import 'package:not_whatsapp_lol/features/home/pages/home_page.dart';
 import 'package:not_whatsapp_lol/features/welcome/pages/welcome_page.dart';
 
@@ -12,6 +13,7 @@ class Routes {
   static const String verification = 'verification';
   static const String userInfo = 'user-info';
   static const String home = 'home';
+  static const String contact = 'contact';
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -44,6 +46,10 @@ class Routes {
       case home:
         return MaterialPageRoute(
           builder: (context) => const HomePage(),
+        );
+      case contact:
+        return MaterialPageRoute(
+          builder: (context) => const ContactPage(),
         );
       default:
         return MaterialPageRoute(

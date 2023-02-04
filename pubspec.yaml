@@ -28,6 +28,7 @@ dependencies:
   flutter_riverpod: ^2.0.0-dev.9
   image_picker: ^0.8.5+3
   photo_manager: ^2.3.0
+  flutter_contacts: ^1.1.5+1
   
 
 flutter_native_splash:

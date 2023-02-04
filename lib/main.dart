@@ -9,6 +9,7 @@ import 'package:not_whatsapp_lol/features/auth/controller/auth_controller.dart';
 import 'package:not_whatsapp_lol/features/auth/pages/login_page.dart';
 import 'package:not_whatsapp_lol/features/auth/pages/user_info_page.dart';
 import 'package:not_whatsapp_lol/features/auth/pages/verification_page.dart';
+import 'package:not_whatsapp_lol/features/contact/pages/contact_page.dart';
 import 'package:not_whatsapp_lol/features/home/pages/home_page.dart';
 import 'package:not_whatsapp_lol/features/welcome/pages/welcome_page.dart';
 import 'package:not_whatsapp_lol/firebase_options.dart';
