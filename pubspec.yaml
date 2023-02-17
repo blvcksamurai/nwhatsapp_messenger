@@ -29,6 +29,7 @@ dependencies:
   image_picker: ^0.8.5+3
   photo_manager: ^2.3.0
   flutter_contacts: ^1.1.5+1
+  url_launcher: ^6.1.9
   
 
 flutter_native_splash:
